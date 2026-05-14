@@ -15,13 +15,14 @@ const DesktopLayout = ({ children }) => {
       <div className="huit-auth-overlay" style={{ backgroundColor: overlayColor }}>
         <div className="huit-auth-card">
           <div className="huit-auth-card__form">
+            {logoUrl && <img src={logoUrl} alt="HUIT" className="huit-auth-card__logo" />}
             {children}
           </div>
           <div className="huit-auth-card__image" style={{ backgroundImage: cardImage ? `url(${cardImage})` : undefined }}>
             {cardImage && (
               <div className="huit-auth-card__image-content">
-                {logoUrl && <img src={logoUrl} alt="HUIT" className="huit-auth-card__logo" />}
-                <h2 className="huit-auth-card__slogan">Học tập vì ngày mai</h2>
+                <h2 className="huit-auth-card__slogan">Học tập chủ động - Làm việc sáng tạo</h2>
+                <h2 className="huit-auth-card__slogan">Sống có trách nhiệm</h2>
               </div>
             )}
           </div>
