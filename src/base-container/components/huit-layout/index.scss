@@ -19,12 +19,14 @@
 
 .huit-auth-card {
   display: flex;
-  max-width: 900px;
+  max-width: 60dvw;
+  min-height: 50dvh;
   width: 100%;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  border: 1px solid #fff;
 
   &__form {
     flex: 1;
