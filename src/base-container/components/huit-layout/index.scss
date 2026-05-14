@@ -20,7 +20,7 @@
 .huit-auth-card {
   display: flex;
   max-width: 60dvw;
-  min-height: 50dvh;
+  min-height: 60dvh;
   width: 100%;
   background: #fff;
   border-radius: 12px;
@@ -32,6 +32,10 @@
     flex: 1;
     padding: 2.5rem;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   &__image {
@@ -47,12 +51,9 @@
       text-align: center;
       z-index: 1;
       padding: 2rem;
+      position: absolute;
+      bottom: 0;
     }
-  }
-
-  &__logo {
-    max-width: 120px;
-    margin-bottom: 1rem;
   }
 
   &__slogan {
@@ -60,6 +61,8 @@
     font-size: 1.25rem;
     font-weight: 600;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
   }
 
   // Mobile: no image side
