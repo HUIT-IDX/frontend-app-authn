@@ -7,13 +7,19 @@ import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 
 import { DefaultLargeLayout, DefaultMediumLayout, DefaultSmallLayout } from './components/default-layout';
+import HuitLayout from './components/huit-layout';
 import {
   ImageExtraSmallLayout, ImageLargeLayout, ImageMediumLayout, ImageSmallLayout,
 } from './components/image-layout';
 import { AuthLargeLayout, AuthMediumLayout, AuthSmallLayout } from './components/welcome-page-layout';
 
 const BaseContainer = ({ children, showWelcomeBanner, fullName }) => {
+  const enableHuitLayout = getConfig().HUIT_CUSTOM_LAYOUT === 'true';
   const enableImageLayout = getConfig().ENABLE_IMAGE_LAYOUT;
+
+  if (enableHuitLayout) {
+    return <HuitLayout>{children}</HuitLayout>;
+  }
 
   if (enableImageLayout) {
     return (
