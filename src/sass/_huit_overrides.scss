@@ -1,0 +1,67 @@
+// ============================================
+// HUIT Brand Variables & Overrides
+// ============================================
+
+// -- Primary palette --
+$huit-primary: #034EA2;
+$huit-primary-dark: #023A7A;
+$huit-primary-light: #E8F0FE;
+$huit-accent: #00D9FF;
+
+// -- Typography --
+$huit-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+// -- Apply HUIT font to auth pages --
+.layout {
+  font-family: $huit-font-family;
+}
+
+// -- Auth card form overrides --
+.huit-auth-card {
+  // Submit button: HUIT blue
+  .btn-primary,
+  .pgn__stateful-btn-state-default {
+    background-color: $huit-primary !important;
+    border-color: $huit-primary !important;
+
+    &:hover,
+    &:focus {
+      background-color: $huit-primary-dark !important;
+      border-color: $huit-primary-dark !important;
+    }
+  }
+
+  // Links in auth pages: HUIT blue
+  a:not(.btn) {
+    color: $huit-primary;
+
+    &:hover {
+      color: $huit-primary-dark;
+    }
+  }
+
+  // Tab active state (login/register toggle)
+  .nav-tabs .nav-link.active {
+    border-bottom-color: $huit-primary;
+    color: $huit-primary;
+  }
+
+  // Input focus state
+  .form-control:focus {
+    border-color: $huit-primary;
+    box-shadow: 0 0 0 2px rgba(3, 78, 162, 0.2);
+  }
+
+  // Smooth transitions for focus/hover states
+  .form-control,
+  .btn {
+    transition: all 0.2s ease;
+  }
+}
+
+// -- Responsive card form padding --
+@include media-breakpoint-down(sm) {
+  .huit-auth-card__form {
+    padding: 1.5rem;
+  }
+}
