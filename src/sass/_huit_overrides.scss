@@ -60,7 +60,7 @@ $huit-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-
 }
 
 // -- Responsive card form padding --
-@include media-breakpoint-down(sm) {
+@media (max-width: 767px) {
   .huit-auth-card__form {
     padding: 1.5rem;
   }
