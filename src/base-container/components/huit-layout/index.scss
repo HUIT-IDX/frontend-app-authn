@@ -39,12 +39,12 @@
   &__form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     min-width: 0;
     padding: clamp(1.25rem, 4vw, 3rem);
 
     &-logo {
+      align-self: center;
       height: clamp(48px, 9vw, 70px);
       width: auto;
       max-width: 100%;
@@ -52,10 +52,25 @@
       margin-bottom: clamp(0.75rem, 2.5vw, 1.25rem);
     }
 
-    // the login/register forms cap themselves with .mw-xs;
-    // make sure they can use the full card width below that cap
-    > * {
+    // upstream _style.scss forces min-width: 464px !important on these
+    // wrappers; inside the card that overflows phone screens and clips
+    // the show-password button, so relax it here
+    .main-content,
+    .welcome-page-content {
+      min-width: 0 !important;
       width: 100%;
+    }
+
+    // the form column caps itself at .mw-xs (464px) but has no auto
+    // margins; center it inside the card no matter how deep it sits
+    .mw-xs {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    // center the register/sign-in tab bar to match the centered form
+    .nav-tabs {
+      justify-content: center;
     }
   }
 
