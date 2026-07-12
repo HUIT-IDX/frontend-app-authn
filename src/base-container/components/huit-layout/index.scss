@@ -1,26 +1,34 @@
+// HUIT custom authn layout.
+// Three tiers matching the upstream default layout breakpoints:
+//   --small  (≤767px)      form-only card
+//   --medium (768–1199px)  banner card (image on top, form below)
+//   --large  (≥1200px)     split card (form left, image right)
+
 .huit-auth-page {
   min-height: 100vh;
+  // dvh tracks the iOS/Android collapsing address bar; vh above is the fallback
+  min-height: 100dvh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .huit-auth-overlay {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  // keep the card clear of notches and rounded corners on mobile devices
+  padding-left: max(clamp(1rem, 3vw, 2.5rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1rem, 3vw, 2.5rem), env(safe-area-inset-right));
+  padding-top: max(clamp(1rem, 3vw, 2.5rem), env(safe-area-inset-top));
+  padding-bottom: max(clamp(1rem, 3vw, 2.5rem), env(safe-area-inset-bottom));
 }
 
 .huit-auth-card {
-  display: flex;
-  max-width: 60dvw;
-  min-height: 60dvh;
   width: 100%;
   background: #fff;
   border-radius: 12px;
@@ -29,23 +37,94 @@
   border: 1px solid #fff;
 
   &__form {
-    flex: 1;
-    padding: 2rem;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-width: 0;
+    padding: clamp(1.25rem, 4vw, 3rem);
 
-      &-logo {
-      height: 70px;
+    &-logo {
+      height: clamp(48px, 9vw, 70px);
       width: auto;
-      margin-bottom: 20px;
+      max-width: 100%;
+      object-fit: contain;
+      margin-bottom: clamp(0.75rem, 2.5vw, 1.25rem);
+    }
+
+    // the login/register forms cap themselves with .mw-xs;
+    // make sure they can use the full card width below that cap
+    > * {
+      width: 100%;
     }
   }
 
+  &__slogan {
+    color: #fff;
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+  }
+
+  // ---- Small: form-only card ----
+  &--small {
+    max-width: 480px;
+    border-radius: 10px;
+  }
+
+  // ---- Medium: banner card ----
+  &--medium {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__banner {
+    height: clamp(160px, 26vh, 240px);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    // darken the bottom edge so the slogans stay readable on any image
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.45));
+    }
+
+    &-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1rem 1.5rem;
+    }
+  }
+
+  // ---- Large: split card ----
+  &--large {
+    display: flex;
+    max-width: min(1100px, 92vw);
+    min-height: min(640px, 80vh);
+    min-height: min(640px, 80dvh);
+
+    .huit-auth-card__form {
+      flex: 1 1 50%;
+    }
+  }
+
+  &--no-image {
+    max-width: 480px;
+    min-height: 0;
+  }
+
   &__image {
-    flex: 1;
+    flex: 1 1 50%;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -59,21 +138,49 @@
       padding: 2rem;
       position: absolute;
       bottom: 0;
+      left: 0;
+      right: 0;
     }
   }
+}
 
-  &__slogan {
-    color: #fff;
-    font-size: 1.25rem;
-    font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(6px);
-    border-radius: 10px;
+// Landscape phones and other short viewports: let the page scroll from the top
+// instead of clipping a vertically-centered card
+@media (max-height: 600px) {
+  .huit-auth-overlay {
+    align-items: flex-start;
   }
 
-  // Mobile: no image side
-  &--mobile {
-    flex-direction: column;
-    max-width: 400px;
+  .huit-auth-card--large {
+    min-height: 0;
+  }
+
+  .huit-auth-card__banner {
+    height: 120px;
+  }
+}
+
+// Very narrow phones
+@media (max-width: 360px) {
+  .huit-auth-overlay {
+    padding: 0.75rem;
+  }
+
+  .huit-auth-card__form {
+    padding: 1rem;
+  }
+}
+
+// Comfortable touch targets on touch devices
+@media (pointer: coarse) {
+  .huit-auth-card .btn {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .huit-auth-card .form-control,
+  .huit-auth-card .btn {
+    transition: none;
   }
 }

@@ -58,10 +58,3 @@ $huit-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-
     transition: all 0.2s ease;
   }
 }
-
-// -- Responsive card form padding --
-@media (max-width: 767px) {
-  .huit-auth-card__form {
-    padding: 1.5rem;
-  }
-}
