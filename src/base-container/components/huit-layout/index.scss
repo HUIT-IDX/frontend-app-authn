@@ -94,6 +94,10 @@
     max-width: 640px;
     display: flex;
     flex-direction: column;
+
+    >h3 {
+      text-align: center;
+    }
   }
 
   &__banner {
@@ -194,6 +198,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .huit-auth-card .form-control,
   .huit-auth-card .btn {
     transition: none;
